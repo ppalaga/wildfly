@@ -31,7 +31,6 @@
         <module name="javax.faces.api"/>
         <module name="javaee.api"/>
         <module name="javax.servlet.jstl.api"/>
-        <module name="org.apache.xerces" services="import"/>
     </dependencies>
 
     <resources>

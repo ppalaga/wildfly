@@ -35,7 +35,6 @@
         </module>
         <module name="javaee.api"/>
         <module name="javax.servlet.jstl.api"/>
-        <module name="org.apache.xerces" services="import"/>
 
         <!-- extra dependencies for MyFaces -->
         <module name="org.apache.commons.collections"/>

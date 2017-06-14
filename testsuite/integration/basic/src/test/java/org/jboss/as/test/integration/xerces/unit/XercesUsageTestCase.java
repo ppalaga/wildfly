@@ -22,6 +22,7 @@
 
 package org.jboss.as.test.integration.xerces.unit;
 
+import java.io.File;
 import java.net.URL;
 
 import org.apache.http.HttpEntity;
@@ -41,6 +42,8 @@ import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +62,15 @@ public class XercesUsageTestCase {
     private static final String JSF_WEB_APP_CONTEXT = "xerces-jsf-webapp";
 
     private static final Logger logger = Logger.getLogger(XercesUsageTestCase.class);
+
+    public static final File[] XERCES_LIBS;
+
+    static {
+        File pom = new File("../../pom.xml").getAbsoluteFile();
+        final PomEquippedResolveStage resolver = Maven.resolver().loadPomFromFile(pom);
+        XERCES_LIBS = resolver.resolve("xerces:xercesImpl:2.9.1").withTransitivity().asFile();
+    }
+
 
     @ArquillianResource
     @OperateOnDeployment("app-without-jsf")
@@ -84,7 +96,7 @@ public class XercesUsageTestCase {
         // add the .war
         ear.addAsModule(war);
         // add the xerces jar in the .ear/lib
-        ear.addAsLibrary("xerces/xercesImpl.jar", "xercesImpl.jar");
+        ear.addAsLibraries(XERCES_LIBS);
 
         return ear;
     }
@@ -105,7 +117,7 @@ public class XercesUsageTestCase {
         // add the .war
         ear.addAsModule(war);
         // add the xerces jar in the .ear/lib
-        ear.addAsLibrary("xerces/xercesImpl.jar", "xercesImpl.jar");
+        ear.addAsLibraries(XERCES_LIBS);
 
         return ear;
     }

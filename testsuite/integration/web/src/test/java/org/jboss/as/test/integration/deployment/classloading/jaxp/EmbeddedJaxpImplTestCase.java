@@ -140,16 +140,19 @@ public class EmbeddedJaxpImplTestCase {
     @InSequence(12)
     public void defaultDatatype() throws IOException, TransformerException {
         final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Datatype);
-        Assert.assertEquals("org.apache.xerces.jaxp.datatype.XMLGregorianCalendarImpl", actual);
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.datatype.XMLGregorianCalendarImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     @RunAsClient
     @InSequence(13)
     public void defaultDatatypeExplicitFactory() throws IOException, TransformerException {
-        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Datatype, "org.apache.xerces.jaxp.datatype.DatatypeFactoryImpl");
-        final String msg = "Provider org.apache.xerces.jaxp.datatype.DatatypeFactoryImpl not found";
-        Assert.assertTrue("Expected "+ msg + "; actual "+ actual, actual.contains(msg));
+        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Datatype, "com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl");
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.datatype.XMLGregorianCalendarImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -157,15 +160,19 @@ public class EmbeddedJaxpImplTestCase {
     @InSequence(14)
     public void defaultDocumentBuilder() throws IOException, TransformerException {
         final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.DocumentBuilder);
-        Assert.assertEquals("org.apache.xerces.jaxp.DocumentBuilderImpl", actual);
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.DocumentBuilderImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     @RunAsClient
     @InSequence(15)
     public void defaultDocumentBuilderExplicitFactory() throws IOException, TransformerException {
-        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.DocumentBuilder, "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        Assert.assertEquals("status 500", actual);
+        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.DocumentBuilder, "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.DocumentBuilderImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -173,15 +180,19 @@ public class EmbeddedJaxpImplTestCase {
     @InSequence(16)
     public void defaultSAXParser() throws IOException, TransformerException {
         final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.SAXParser);
-        Assert.assertEquals("org.apache.xerces.jaxp.SAXParserImpl", actual);
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.SAXParserImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     @RunAsClient
     @InSequence(17)
     public void defaultSAXParserExplicitFactory() throws IOException, TransformerException {
-        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.SAXParser, "org.apache.xerces.jaxp.SAXParserFactoryImpl");
-        Assert.assertEquals("status 500", actual);
+        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.SAXParser, "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.SAXParserImpl"
+                : "com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -211,15 +222,19 @@ public class EmbeddedJaxpImplTestCase {
     @InSequence(20)
     public void defaultSchema() throws IOException, TransformerException {
         final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Schema);
-        Assert.assertEquals("org.apache.xerces.jaxp.validation.SimpleXMLSchema", actual);
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.validation.SimpleXMLSchema"
+                : "com.sun.org.apache.xerces.internal.jaxp.validation.SimpleXMLSchema";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     @RunAsClient
     @InSequence(21)
     public void defaultSchemaExplicitFactory() throws IOException, TransformerException {
-        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Schema, "org.apache.xerces.jaxp.validation.XMLSchemaFactory");
-        Assert.assertEquals("org.apache.xerces.jaxp.validation.SimpleXMLSchema", actual);
+        final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.Schema, "com.sun.org.apache.xerces.internal.jaxp.validation.SimpleXMLSchema");
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.jaxp.validation.SimpleXMLSchema"
+                : "com.sun.org.apache.xerces.internal.jaxp.validation.SimpleXMLSchema";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -251,7 +266,9 @@ public class EmbeddedJaxpImplTestCase {
     @InSequence(25)
     public void defaultXMLReader() throws IOException, TransformerException {
         final String actual = JaxpTestUtils.getFactory(DEFAULT_APP.getName(), Factory.XMLReader);
-        Assert.assertEquals("org.apache.xerces.parsers.AbstractSAXParser$AttributesProxy", actual);
+        final String expected = JaxpTestUtils.isIbmJvm() ? "org.apache.xerces.parsers.AbstractSAXParser$AttributesProxy"
+                : "com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser$AttributesProxy";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

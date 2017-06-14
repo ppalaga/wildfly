@@ -33,6 +33,7 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.test.integration.xerces.XercesUsageServlet;
+import org.jboss.as.test.integration.xerces.unit.XercesUsageTestCase;
 import org.jboss.as.test.integration.xerces.ws.XercesUsageWSEndpoint;
 import org.jboss.as.test.integration.xerces.ws.XercesUsageWebService;
 import org.jboss.logging.Logger;
@@ -75,7 +76,7 @@ public class XercesUsageInWebServiceTestCase {
         war.addAsResource(XercesUsageServlet.class.getPackage(), "dummy.xml", "dummy.xml");
 
         // add the xerces jar in the .war/WEB-INF/lib
-        war.addAsLibrary("xerces/xercesImpl.jar", "xercesImpl.jar");
+        war.addAsLibraries(XercesUsageTestCase.XERCES_LIBS);
 
         return war;
     }

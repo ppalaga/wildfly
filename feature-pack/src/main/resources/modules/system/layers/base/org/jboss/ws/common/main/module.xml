@@ -44,7 +44,6 @@
         <module name="org.jboss.ws.api"/>
         <module name="org.jboss.ws.spi"/>
         <module name="org.jboss.logging"/>
-        <module name="org.apache.xerces" services="import"/>
         <module name="org.jboss.jaxbintros"/>
 
         <!-- TODO WFLY-5966 validate the need for these and remove if not needed.

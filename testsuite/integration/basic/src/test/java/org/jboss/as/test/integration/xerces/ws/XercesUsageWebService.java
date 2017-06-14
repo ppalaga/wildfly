@@ -22,12 +22,12 @@
 
 package org.jboss.as.test.integration.xerces.ws;
 
-import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
 
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 
 /**
  * User: jpai
@@ -37,16 +37,21 @@ import java.io.InputStream;
 public class XercesUsageWebService implements XercesUsageWSEndpoint {
 
     public static final String SUCCESS_MESSAGE = "Success";
+    private static final String DOM_PARSER_CLASS_NAME = "org.apache.xerces.parsers.DOMParser";
 
     @Override
     public String parseUsingXerces(String xmlResource) {
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(xmlResource);
-        if (inputStream == null) {
-            throw new RuntimeException(xmlResource + " could not be found");
-        }
-        DOMParser domParser = new DOMParser();
-        try {
-            domParser.parse(new InputSource(inputStream));
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(xmlResource)) {
+            if (inputStream == null) {
+                throw new RuntimeException(xmlResource + " could not be found");
+            }
+            /* We invoke org.apache.xerces.parsers.DOMParser.parse() via reflection so that we do not need to pollute the
+             * class path of other tests in this module and so that we do not need to have an explicit dependency on
+             * xerces:xercesImpl that is banned anyway */
+            Class<?> domParserClass = Class.forName(DOM_PARSER_CLASS_NAME);
+            Object domParser  = domParserClass.newInstance();
+            Method parseMethod = domParserClass.getMethod("parse", org.xml.sax.InputSource.class);
+            parseMethod.invoke(domParser, new InputSource(inputStream));
             return SUCCESS_MESSAGE;
         } catch (Exception e) {
             throw new RuntimeException(e);

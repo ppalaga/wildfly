@@ -61,5 +61,7 @@
         <module name="org.jboss.vfs"/>
         <module name="org.picketbox"/>
         <module name="org.wildfly.common"/>
+        <module name="sun.jdk"/>
+        <module name="ibm.jdk"/>
     </dependencies>
 </module>

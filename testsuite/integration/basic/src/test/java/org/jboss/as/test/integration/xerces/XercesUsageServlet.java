@@ -24,21 +24,24 @@ package org.jboss.as.test.integration.xerces;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * User: jpai
  */
 @WebServlet (urlPatterns = XercesUsageServlet.URL_PATTERN)
 public class XercesUsageServlet extends HttpServlet {
+
+    private static final String DOM_PARSER_CLASS_NAME = "org.apache.xerces.parsers.DOMParser";
 
     public static final String URL_PATTERN = "/xercesServlet";
 
@@ -49,21 +52,25 @@ public class XercesUsageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String xmlResource = req.getParameter(XML_RESOURCE_NAME_PARAMETER);
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(xmlResource);
-        if (inputStream == null) {
-            throw new ServletException(xmlResource + " could not be found");
-        }
-        try {
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(xmlResource)) {
+            if (inputStream == null) {
+                throw new ServletException(xmlResource + " could not be found");
+            }
             this.parse(inputStream);
             resp.getOutputStream().print(SUCCESS_MESSAGE);
-        } catch (SAXException saxe) {
+        } catch (Exception saxe) {
             throw new ServletException(saxe);
         }
     }
 
-    private void parse(final InputStream inputStream) throws IOException, SAXException {
-        DOMParser domParser = new DOMParser();
-        domParser.parse(new InputSource(inputStream));
+    private void parse(final InputStream inputStream) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+        /* We invoke org.apache.xerces.parsers.DOMParser.parse() via reflection so that we do not need to pollute the
+         * class path of other tests in this module and so that we do not need to have an explicit dependency on
+         * xerces:xercesImpl that is banned anyway */
+        Class<?> domParserClass = Class.forName(DOM_PARSER_CLASS_NAME);
+        Object domParser  = domParserClass.newInstance();
+        Method parseMethod = domParserClass.getMethod("parse", org.xml.sax.InputSource.class);
+        parseMethod.invoke(domParser, new InputSource(inputStream));
     }
 
 

@@ -27,7 +27,6 @@
 
     <dependencies>
         <module name="org.jaxen"/>
-        <module name="org.apache.xerces"/>
         <module name="javax.api"/>
     </dependencies>
 

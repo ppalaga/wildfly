@@ -34,7 +34,8 @@
     <dependencies>
         <module name="javax.api" />
         <module name="javax.xml.soap.api" />
-        <module name="org.apache.xerces" services="import" />
+        <module name="sun.jdk"/>
+        <module name="ibm.jdk"/>
     </dependencies>
 
 </module>
