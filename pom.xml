@@ -160,13 +160,13 @@
         <server.output.dir.prefix>wildfly</server.output.dir.prefix>
         <!-- Version suffix that is appended to directories. Default is the maven GAV version but this can be edited to use a short form version -->
         <server.output.dir.version>${project.version}</server.output.dir.version>
-        
+
         <!-- Surefire args -->
         <surefire.extra.args></surefire.extra.args>
         <surefire.jpda.args></surefire.jpda.args>
         <surefire.system.args>${modular.jdk.args} ${modular.jdk.props} -ea -Duser.region=US -Duser.language=en -XX:MaxMetaspaceSize=256m ${surefire.jpda.args} ${surefire.extra.args} ${surefire.jacoco.args}</surefire.system.args>
         <version.asciidoctor.plugin>1.5.6</version.asciidoctor.plugin>
-        
+
         <!-- use older version of checkstyle as otherwise lots of checks fail -->
         <version.checkstyle>8.5</version.checkstyle>
         <version.help.plugin>2.2</version.help.plugin>
@@ -382,7 +382,7 @@
         <version.org.wildfly.arquillian>2.1.0.Final</version.org.wildfly.arquillian>
         <version.org.wildfly.bridge.servlet-api-bridge>1.0.1.Final</version.org.wildfly.bridge.servlet-api-bridge>
         <version.org.wildfly.cdi-api-bridge>1.0.1.Final</version.org.wildfly.cdi-api-bridge>
-        <version.org.wildfly.core>5.0.0.Final</version.org.wildfly.core>
+        <version.org.wildfly.core>6.0.0.Alpha1-SNAPSHOT</version.org.wildfly.core>
         <version.org.wildfly.http-client>1.0.12.Final</version.org.wildfly.http-client>
         <version.org.wildfly.naming-client>1.0.9.Final</version.org.wildfly.naming-client>
         <version.org.wildfly.transaction.client>1.1.2.Final</version.org.wildfly.transaction.client>
@@ -495,7 +495,7 @@
                 <artifactId>jipijapa-hibernate5-legacy</artifactId>
                 <version>${project.version}</version>
             </dependency>
- 
+
            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>jipijapa-hibernate5-3-legacy</artifactId>
