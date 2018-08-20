@@ -463,6 +463,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.wildfly.galleon-plugins</groupId>
+            <artifactId>wildfly-config-gen</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.galleon-plugins</groupId>
+            <artifactId>wildfly-feature-spec-gen</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>xalan</groupId>
             <artifactId>serializer</artifactId>
         </dependency>
@@ -550,51 +560,6 @@
                         <configuration>
                             <output-dir>${basedir}/target/resources/features</output-dir>
                             <fork-embedded>true</fork-embedded>
-                            <feature-packs>
-                                <feature-pack>
-                                    <groupId>org.wildfly.core</groupId>
-                                    <artifactId>wildfly-core-galleon-pack</artifactId>
-                                    <type>zip</type>
-                                    <extension>zip</extension>
-                                </feature-pack>
-                            </feature-packs>
-                            <standalone-extensions>
-                                <extension>org.jboss.as.deployment-scanner</extension>
-                                <extension>org.jboss.as.ee</extension>
-                                <extension>org.jboss.as.jmx</extension>
-                                <extension>org.jboss.as.logging</extension>
-                                <extension>org.jboss.as.naming</extension>
-                                <extension>org.jboss.as.security</extension>
-                                <extension>org.wildfly.extension.core-management</extension>
-                                <extension>org.wildfly.extension.elytron</extension>
-                                <extension>org.wildfly.extension.io</extension>
-                                <extension>org.wildfly.extension.request-controller</extension>
-                                <extension>org.wildfly.extension.security.manager</extension>
-                                <extension>org.wildfly.extension.undertow</extension>
-                                <extension>org.jboss.as.remoting</extension>
-                                <extension>org.wildfly.extension.discovery</extension>
-                            </standalone-extensions>
-                            <domain-extensions>
-                                <extension>org.jboss.as.ee</extension>
-                                <extension>org.jboss.as.jmx</extension>
-                                <extension>org.jboss.as.logging</extension>
-                                <extension>org.jboss.as.naming</extension>
-                                <extension>org.jboss.as.security</extension>
-                                <extension>org.wildfly.extension.core-management</extension>
-                                <extension>org.wildfly.extension.elytron</extension>
-                                <extension>org.wildfly.extension.io</extension>
-                                <extension>org.wildfly.extension.request-controller</extension>
-                                <extension>org.wildfly.extension.undertow</extension>
-                                <extension>org.jboss.as.remoting</extension>
-                                <extension>org.wildfly.extension.discovery</extension>
-                                <extension>org.wildfly.extension.security.manager</extension>
-                            </domain-extensions>
-                            <host-extensions>
-                                <extension>org.jboss.as.jmx</extension>
-                                <extension>org.wildfly.extension.core-management</extension>
-                                <extension>org.wildfly.extension.discovery</extension>
-                                <extension>org.wildfly.extension.elytron</extension>
-                            </host-extensions>
                         </configuration>
                         </execution>
                     <execution>
